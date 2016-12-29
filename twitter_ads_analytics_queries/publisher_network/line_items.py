@@ -1,11 +1,9 @@
 """
 TODO: module docstrings
 """
-import query
-
 from datetime import datetime, timedelta 
 from twitter_ads.enum import METRIC_GROUP, PLACEMENT, GRANULARITY 
-
+from twitter_ads_analytics_queries.query import get_line_items
 
 def yesterday(account=None):
     """
@@ -20,7 +18,7 @@ def yesterday(account=None):
     period = GRANULARITY.DAY
     ad_type = PLACEMENT.PUBLISHER_NETWORK
 
-    return query.get_line_items(
+    return get_line_items(
             account=account,
             start_time=start.strftime('%Y-%m-%d'),
             end_time=end.strftime('%Y-%m-%d'),
@@ -43,7 +41,7 @@ def last_14_days(account=None):
     period = GRANULARITY.DAY
     ad_type = PLACEMENT.PUBLISHER_NETWORK
 
-    return query.get_line_items(
+    return get_line_items(
             account=account,
             start_time=start.strftime('%Y-%m-%d'),
             end_time=end.strftime('%Y-%m-%d'),
@@ -66,7 +64,7 @@ def last_30_days(account=None):
     period = GRANULARITY.DAY
     ad_type = PLACEMENT.PUBLISHER_NETWORK
 
-    return query.get_line_items(
+    return get_line_items(
             account=account,
             start_time=start.strftime('%Y-%m-%d'),
             end_time=end.strftime('%Y-%m-%d'),
@@ -88,7 +86,7 @@ def custom_date_range(account=None, start=None, end=None):
     period = GRANULARITY.DAY
     ad_type = PLACEMENT.PUBLISHER_NETWORK
 
-    return query.get_line_items(
+    return get_line_items(
             account=account,
             start_time=start,
             end_time=end,

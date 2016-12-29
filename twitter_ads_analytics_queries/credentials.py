@@ -1,5 +1,5 @@
 """
-Configuration module to keep your credentials stored locally.
+TODO: module doc-strings
 """
 import yaml
 import subprocess
@@ -41,7 +41,7 @@ class EasyAuth:
                 yml['ACCESS TOKEN'],
                 yml['ACCESS TOKEN SECRET'])
         else:
-            from config import TWITTER
+            from twitter_ads_analytics_queries.config import TWITTER
             if all(TWITTER.values()):
                 self._client = Client(
                     TWITTER['CONSUMER KEY'],
@@ -49,7 +49,7 @@ class EasyAuth:
                     TWITTER['ACCESS TOKEN'],
                     TWITTER['ACCESS TOKEN SECRET'])
         self._account = self._client.accounts(account)
-        
+
     @property
     def account(self):
         return getattr(self, '_account')
@@ -71,6 +71,7 @@ class YAMLFileWriter:
     :params consumer_secret: str, alphanumeric string
     :params access_token: str, alphanumeric string
     :params access_token_secret: str, alphanumeric string
+    :params path: str, absolute path to directory 
     """
     def __init__(self, 
         consumer_key,
@@ -79,7 +80,11 @@ class YAMLFileWriter:
         access_token_secret,
         path=os.path.dirname(os.path.dirname(__file__))):
 
-        self._path = os.path.join(path,'.twitter.yaml')
+        if path[0] != '/':
+            print('Your path is missing an initial forward slash.')
+            self._path = '/'+os.path.join(path,'.twitter.yml')
+        else:
+            self._path = os.path.join(path,'.twitter.yml')
         self._store = {
             'CONSUMER KEY':consumer_key, 
             'CONSUMER SECRET':consumer_secret,

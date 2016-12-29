@@ -1,13 +1,18 @@
 """
+TODO: module doc-strings
 """
 import time 
-import credentials
-
-from response import TwitterAnalyticsResponse
-from utils import format_time, handle_response, line_item_generator
 
 from twitter_ads.campaign import LineItem, Campaign
 from twitter_ads.enum import METRIC_GROUP, PLACEMENT, GRANULARITY
+
+from twitter_ads_analytics_queries.response import TwitterAnalyticsResponse
+from twitter_ads_analytics_queries.credentials import EasyAuth
+from twitter_ads_analytics_queries.utils import (
+    format_time, 
+    handle_response, 
+    line_item_generator
+)
 
 
 def get_line_items(account, metric_groups, **kwargs):
@@ -18,13 +23,13 @@ def get_line_items(account, metric_groups, **kwargs):
     :params kwargs: args related to analytics queries
     """
     try:
-        entry = credentials.EasyAuth(account, "TWITTER_CREDENTIALS")
+        entry = EasyAuth(account, "TWITTER_CREDENTIALS")
     except:
-        entry = credentials.EasyAuth(account)
+        entry = EasyAuth(account)
     finally:
         if kwargs.get('creds', None):
             creds = kwargs.get('creds')
-            entry = credentials.EasyAuth(account, creds)
+            entry = EasyAuth(account, creds)
     
     start = kwargs.get('start_time')
     end = kwargs.get('end_time')
@@ -76,13 +81,13 @@ def get_campaigns(account, metric_groups, **kwargs):
     :params kwargs: args related to analytics queries
     """
     try:
-        entry = credentials.EasyAuth(account, "TWITTER_CREDENTIALS")
+        entry = EasyAuth(account, "TWITTER_CREDENTIALS")
     except:
-        entry = credentials.EasyAuth(account)
+        entry = EasyAuth(account)
     finally:
         if kwargs.get('creds', None):
             creds = kwargs.get('creds')
-            entry = credentials.EasyAuth(account, creds)
+            entry = EasyAuth(account, creds)
 
     start = kwargs.get('start_time')
     end = kwargs.get('end_time')

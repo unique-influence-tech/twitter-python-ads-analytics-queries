@@ -1,4 +1,4 @@
-### Introduction
+## Introduction
 
 This package acts like an add-on to the [Twitter Ads SDK](http://twitterdev.github.io/twitter-python-ads-sdk/). It is designed to make Twitter
 Ads Analytics requests more simple by doing two things:
@@ -10,20 +10,46 @@ The mappings are daily records:
 
 `{campaign_name:'', 'id':'', 'date':'', metric_1:'', metric_2:'', metric_3:''}` 
 
-This makes importing into a database very easy :thumbsup:.
+This makes importing into a database very easy.:thumbsup::thumbsup::thumbsup:
 
-### Installation
-
-Coming soon
-
-### Usage
+## Installation
 
 Coming soon
 
-### Testing
+## Usage
+
+#### Abstracted Credentials :white_check_mark:
+
+One of the most annoying parts of making requests is constantly providing credentials. :sweat: 
+
+I've given options to the user to remove that process. You can supply credentials in the following ways:
+
+* Edit the `config.py` in your pip installed package
+
+* Generate a `TWITTER_CREDENTIALS` variable in your environment file that points to a yaml version of your credentials:
+
+```
+$ cd /your/pip/installed/package
+$ source secure_twitter_creds.bash
+$ bash secure_twitter_creds.bash /where/you/want/to/store/creds /your/shell/environment/.file
+```
+
+If you don't want to use these options, you can bootstrap calls by supplying a `creds={}` argument to  `get_campaigns` and `get_line_items` in the `query.py` file.
+
+#### Simplified Querying :white_check_mark:
+
+```
+$ python
+>>> import twitter_ads_analytics_queries
+>>> request = twitter_ads_analytics_queries.twitter.campaigns.yesterday('xxxxxx')
+>>> request.records
+[{'conversion_sign_ups_metric':0, 'conversion_site_visits_order_quantity_view': 0, ... }, ...] 
+```
+
+## Testing
 
 Coming soon
 
-### Additional Notes
+## Additional Notes
 
 Coming soon

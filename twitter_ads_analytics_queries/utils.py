@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 from os.path import dirname, abspath, join
 
 
-
 def format_time(date, from_tz='US/Central', to_tz='UTC'):
     """Put string date into acceptable Twitter form.
     
@@ -119,13 +118,6 @@ def line_item_generator(ids):
             yield ids[step:step+20]
         else:
             yield ids[step:len(ids)]
-
-
-
-
-
-
-
 
 
 
