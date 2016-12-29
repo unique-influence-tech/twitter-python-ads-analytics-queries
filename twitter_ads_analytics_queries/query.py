@@ -1,8 +1,7 @@
 """
-TODO: module docstrings 
 """
 import time 
-import access
+import credentials
 
 from response import TwitterAnalyticsResponse
 from utils import format_time, handle_response, line_item_generator
@@ -18,8 +17,15 @@ def get_line_items(account, metric_groups, **kwargs):
     :params metric_groups: list, 1 or more metric groups
     :params kwargs: args related to analytics queries
     """
-    entry = access.EasyAuth(account, "TWITTER")
-
+    try:
+        entry = credentials.EasyAuth(account, "TWITTER_CREDENTIALS")
+    except:
+        entry = credentials.EasyAuth(account)
+    finally:
+        if kwargs.get('creds', None):
+            creds = kwargs.get('creds')
+            entry = credentials.EasyAuth(account, creds)
+    
     start = kwargs.get('start_time')
     end = kwargs.get('end_time')
     if start and end:
@@ -30,14 +36,14 @@ def get_line_items(account, metric_groups, **kwargs):
 
     line_item_resources = list(entry.account.line_items())
     campaigns = list(entry.account.campaigns())
-
     lookup = {campaign.id:campaign.name for campaign in campaigns}
-    line_items = {line_item.id: lookup.get(line_item.campaign_id) 
+    line_items = {line_item.id: lookup.get(line_item.campaign_id)
         for line_item in line_item_resources}
+    line_item_ids = list(line_items.keys())
 
     response = []
 
-    for ids in line_item_generator(list(line_items.keys())):
+    for ids in line_item_generator(line_item_ids):
         job = LineItem.queue_async_stats_job(
             account=entry.account, 
             ids=ids,
@@ -69,8 +75,15 @@ def get_campaigns(account, metric_groups, **kwargs):
     :params metric_groups: list, 1 or more metric groups
     :params kwargs: args related to analytics queries
     """
-    entry = access.EasyAuth(account, "TWITTER")
-    
+    try:
+        entry = credentials.EasyAuth(account, "TWITTER_CREDENTIALS")
+    except:
+        entry = credentials.EasyAuth(account)
+    finally:
+        if kwargs.get('creds', None):
+            creds = kwargs.get('creds')
+            entry = credentials.EasyAuth(account, creds)
+
     start = kwargs.get('start_time')
     end = kwargs.get('end_time')
     if start and end:
@@ -82,10 +95,11 @@ def get_campaigns(account, metric_groups, **kwargs):
     campaign_resources = list(entry.account.campaigns())
     campaigns = {campaign.id:campaign.name 
         for campaign in campaign_resources}
+    campaign_ids = list(campaigns.keys())
 
     response = []
 
-    for ids in line_item_generator(list(campaigns.keys())):
+    for ids in line_item_generator(campaign_ids):
         job = Campaign.queue_async_stats_job(
             account=entry.account, 
             ids=ids,
