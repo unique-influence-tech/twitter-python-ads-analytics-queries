@@ -9,7 +9,7 @@ Ads Analytics requests more simple by doing two things:
 The mappings are daily records: 
 
 ```python
-{campaign_name:'', 'id':'', 'date':'', metric_1:'', metric_2:'', metric_3:''}
+{'campaign_name':'', 'id':'', 'date':'', 'metric_1':'', 'metric_2':'', 'metric_3':''}
 ``` 
 
 This makes importing into a database very easy.:thumbsup::thumbsup::thumbsup:
