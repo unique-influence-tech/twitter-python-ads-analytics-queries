@@ -30,7 +30,7 @@ I've given options to the user to remove that process. You can supply credential
 
 ```
 $ cd /your/pip/installed/package/directory
-$ source secure_twitter_creds.bash/where/you/want/to/store/creds /your/shell/environment/.file
+$ source secure_twitter_creds.bash /where/you/want/to/store/creds /your/shell/environment/.file
 ---------------------------------<>
 Adding TWITTER_CREDENTIALS variable to environment file..
 Paste your consumer key here:
