@@ -14,7 +14,6 @@ from twitter_ads_analytics_queries.utils import (
     line_item_generator
 )
 
-
 def get_line_items(account, metric_groups, **kwargs):
     """ Get stats for all line items for a given account.
 

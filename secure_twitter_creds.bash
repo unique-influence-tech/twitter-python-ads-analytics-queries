@@ -26,7 +26,7 @@ if [[ ! -z "$CREDS_DIR" ]] && [[ ! -z "$ENV_FILE" ]];
 
         if [[ ! -z "$CONSUMER_KEY" ]] && [[ ! -z "$CONSUMER_SECRET" ]] && [[ ! -z "$ACCESS_TOKEN" ]] && [[ ! -z "$ACCESS_TOKEN_SECRET" ]];
             then 
-                python -m  twitter_ads_analytics_queries._write_yaml_creds.py "$CONSUMER_KEY" "$CONSUMER_SECRET" "$ACCESS_TOKEN_SECRET" "$ACCESS_TOKEN_SECRET" "$CREDS_DIR";
+                python -m twitter_ads_analytics_queries._write_yaml_creds "$CONSUMER_KEY" "$CONSUMER_SECRET" "$ACCESS_TOKEN_SECRET" "$ACCESS_TOKEN_SECRET" "$CREDS_DIR";
                 sed -i '' '/TWITTER_CREDENTIALS/d' "$ENV_FILE";
                 echo 'Add variable to environment..';
                 echo $'\n' >> $ENV_FILE;
@@ -35,17 +35,16 @@ if [[ ! -z "$CREDS_DIR" ]] && [[ ! -z "$ENV_FILE" ]];
                 echo 'TWITTER_CREDENTIALS variable adding: FAILED';
                 echo 'Reason: One of required Twitter credentials is blank.';
                 echo '----------------------------------<>';  
-                exit;
+                return;
         fi;
     else
         echo 'TWITTER_CREDENTIALS variable adding: FAILED';
         echo 'Reason: You must supply a credentials directory and environment file.';
         echo '----------------------------------<>';  
-        exit;
+        return;
 fi;
 echo 'TWITTER_CREDENTIALS variable adding: SUCCESS';     
-echo 'Sourcing ... ';
-source "$ENV_FILE";
 echo "$ENV_FILE sourced."
-echo '----------------------------------<>';  
+echo '----------------------------------<>';
+return;
 

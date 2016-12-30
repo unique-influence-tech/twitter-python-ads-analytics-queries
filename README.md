@@ -24,14 +24,28 @@ One of the most annoying parts of making requests is constantly providing creden
 
 I've given options to the user to remove that process. You can supply credentials in the following ways:
 
-* Edit the `config.py` in your pip installed package
+* Find the `/your/pip/installed/package/directory` and manually add credentials to the `config.py` 
 
 * Generate a `TWITTER_CREDENTIALS` variable in your environment file that points to a yaml version of your credentials:
 
 ```
-$ cd /your/pip/installed/package
-$ source secure_twitter_creds.bash
-$ bash secure_twitter_creds.bash /where/you/want/to/store/creds /your/shell/environment/.file
+$ cd /your/pip/installed/package/directory
+$ source secure_twitter_creds.bash/where/you/want/to/store/creds /your/shell/environment/.file
+---------------------------------<>
+Adding TWITTER_CREDENTIALS variable to environment file..
+Paste your consumer key here:
+XXXXXX
+Paste your consumer secret key here:
+XXXXXX
+Paste your access key here:
+XXXXXX
+Paste your access secret key here:
+XXXXXX
+YAML write successful.
+Add variable to environment..
+TWITTER_CREDENTIALS variable adding: SUCCESS
+/your/shell/environment/.file sourced.
+----------------------------------<>
 ```
 
 If you don't want to use these options, you can bootstrap calls by supplying a `creds={}` argument to  `get_campaigns` and `get_line_items` in the `query.py` file.
@@ -41,7 +55,7 @@ If you don't want to use these options, you can bootstrap calls by supplying a `
 ```
 $ python
 >>> import twitter_ads_analytics_queries
->>> request = twitter_ads_analytics_queries.twitter.campaigns.yesterday('xxxxxx')
+>>> request = twitter_ads_analytics_queries.twitter.campaigns.yesterday(account='xxxxxx')
 >>> request.records
 [{'conversion_sign_ups_metric':0, 'conversion_site_visits_order_quantity_view': 0, ... }, ...] 
 ```

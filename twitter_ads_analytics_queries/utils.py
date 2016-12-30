@@ -9,7 +9,6 @@ from pytz import timezone
 from datetime import datetime, timedelta
 from os.path import dirname, abspath, join
 
-
 def format_time(date, from_tz='US/Central', to_tz='UTC'):
     """Put string date into acceptable Twitter form.
     
