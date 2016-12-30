@@ -8,7 +8,9 @@ Ads Analytics requests more simple by doing two things:
 
 The mappings are daily records: 
 
-`{campaign_name:'', 'id':'', 'date':'', metric_1:'', metric_2:'', metric_3:''}` 
+```python
+{campaign_name:'', 'id':'', 'date':'', metric_1:'', metric_2:'', metric_3:''}
+``` 
 
 This makes importing into a database very easy.:thumbsup::thumbsup::thumbsup:
 
@@ -28,7 +30,7 @@ I've given options to the user to remove that process. You can supply credential
 
 * Generate a `TWITTER_CREDENTIALS` variable in your environment file that points to a yaml version of your credentials:
 
-```
+```bash
 $ cd /your/pip/installed/package/directory
 $ source secure_twitter_creds.bash /where/you/want/to/store/creds /your/shell/environment/.file
 ---------------------------------<>
@@ -52,8 +54,7 @@ If you don't want to use these options, you can bootstrap calls by supplying a `
 
 #### Simplified Querying :white_check_mark:
 
-```
-$ python
+```python
 >>> import twitter_ads_analytics_queries
 >>> request = twitter_ads_analytics_queries.twitter.campaigns.yesterday(account='xxxxxx')
 >>> request.records
